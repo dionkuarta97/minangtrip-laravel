@@ -4,9 +4,24 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Traits\ApiResponse;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
+
+    use ApiResponse;
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof ValidationException) {
+            return $this->errorResponse($exception->getMessage(), 422);
+        }
+        if ($exception instanceof AuthenticationException) {
+            return $this->errorResponse($exception->getMessage(), 401);
+        }
+        return parent::render($request, $exception);
+    }
     /**
      * A list of exception types with their corresponding custom log levels.
      *
