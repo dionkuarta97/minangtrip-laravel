@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('user')->group(function () {
     require __DIR__ . '/user/index.php';
 });
+
+Route::prefix('owner')->group(function () {
+    require __DIR__ . '/owner.php';
+});
