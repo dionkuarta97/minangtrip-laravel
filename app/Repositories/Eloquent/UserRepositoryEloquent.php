@@ -12,4 +12,9 @@ class UserRepositoryEloquent implements UserRepositoryInterface
     {
         return Users::where('username', $username)->first();
     }
+
+    public function findById(int $id): ?Users
+    {
+        return Users::find($id);
+    }
 }
